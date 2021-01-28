@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href='noteStyle.css'>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <title>Sticky Notes</title>
+    </head>
+    <body>
+
+        <div id='header'>
+            <text>Sticky Notes - 2.0</text>
+            <div id='options'>
+                <button id='minimize'>
+                    <img src="./icons/minus.svg" alt="minimize icon">
+                </button>
+                <div id='options'>
+                    <button id='optionButton'>
+                        <img src="./icons/cog.svg" alt="cog icon">
+                    </button>
+                    <div id='optionMenu' class='hidden'>
+                        <div id='optionMenuContents'>
+                            <p>Header Color:</p>
+                            <input type="range" id='headerColor' value="0" min="-127" max="127" autocompleted="">
+                            <p>Opacity:</p>
+                            <input type="range" id='opacity' value="0" min="0" max="10" autocompleted="">
+                            <p>Font Size:</p>
+                            <input type="range" id='fontSize' value="0" min="0" max="10" autocompleted="">
+                            <button id='delete'>Delete Note</button>
+                            <button id='new'>New Note</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id='text-div'>
+            <textarea id="text" spellcheck="false"
+                onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"></textarea>
+        </div>
+
+        <script src="noteScript.js"></script>
+    </body>
+</html>
