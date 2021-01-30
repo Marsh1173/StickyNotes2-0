@@ -11,6 +11,15 @@ app.on('ready', () => {
         makeNewWindow();
     } else {
         for (let i = 0; i < json.length; i++) {
+            let fontSize = "15";
+            if ("fontSize" in json[i]) fontSize = json[i]["fontSize"];
+            let opacity = "0.486";
+            if ("opacity" in json[i]) opacity = json[i]["opacity"];
+            let noteColor = "black";
+            if ("noteColor" in json[i]) {
+                noteColor = json[i]["noteColor"];
+                console.log(noteColor)
+            }
             tempWindow = new BrowserWindow({
                 frame:false,
                 transparent:true,
@@ -25,16 +34,15 @@ app.on('ready', () => {
                 y:json[i]["position"]["y"],
                 webPreferences: {
                     nodeIntegration: true,
-                    additionalArguments: [json[i]["text"],],
+                    additionalArguments: [json[i]["text"], fontSize, opacity, noteColor],
                 },
             })
             tempWindow.loadFile('noteIndex.html');
-            myWindows.push(tempWindow);
         }
     }
 });
 
-function makeNewWindow() { // make new blank window
+function makeNewWindow(fontSize = "15", opacity = "0.486", noteColor = "black") { // make new blank window
     let tempWindow = new BrowserWindow({
         frame:false,
         transparent:true,
@@ -47,11 +55,10 @@ function makeNewWindow() { // make new blank window
         height: 300,
         webPreferences: {
             nodeIntegration: true,
-            additionalArguments: ["New note"],
+            additionalArguments: ["New note", fontSize, opacity, noteColor],
         },
     })
     tempWindow.loadFile('noteIndex.html');
-    myWindows.push(tempWindow);
 }
 
 ipcMain.on('rendererMessage', (event, arg) => {
@@ -72,11 +79,17 @@ ipcMain.on('rendererMessage', (event, arg) => {
                 "size": {
                     "width": arg[1]["width"],
                     "height": arg[1]["height"],
-                }
+                },
+                "fontSize": (arg[1]["fontSize"].toString()),
+                "opacity": (arg[1]["opacity"].toString()),
+                "noteColor": arg[1]["noteColor"],
             })
             break;
         case "new" :
-            makeNewWindow();
+            makeNewWindow((arg[1]["fontSize"].toString()), (arg[1]["opacity"].toString()), arg[1]["noteColor"]);
+            break;
+        case "closeAll" :
+            app.quit();
             break;
         default:
             throw new Error("Unrecognized renderer command")
@@ -84,7 +97,6 @@ ipcMain.on('rendererMessage', (event, arg) => {
 });
 
 app.on('will-quit', () => { // called before the whole application closes
-    app.quit()
     const jsonString = JSON.stringify(savedWindowsJson); // json-ifies the global variable
     fs.writeFileSync('./windowStorage.json', jsonString); // and saves it in the file.
 })

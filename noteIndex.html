@@ -23,13 +23,29 @@
                     </button>
                     <div id='optionMenu' class='hidden'>
                         <div id='optionMenuContents'>
-                            <p>Header Color:</p>
-                            <input type="range" id='headerColor' value="0" min="-127" max="127" autocompleted="">
+                            <p>Note Color:</p>
+                            <select id='noteColor'>
+                                <option id='black' value='black'>&nbsp</option>
+                                <option id='gray' value='gray'>&nbsp</option>
+                                <option id='white' value='white'>&nbsp</option>
+                                <option id='navy' value='navy'>&nbsp</option>
+                                <option id='blue' value='blue'>&nbsp</option>
+                                <option id='cyan' value='cyan'>&nbsp</option>
+                                <option id='pistachio' value='pistachio'>&nbsp</option>
+                                <option id='green' value='green'>&nbsp</option>
+                                <option id='lime' value='lime'>&nbsp</option>
+                                <option id='yellow' value='yellow'>&nbsp</option>
+                                <option id='orange' value='orange'>&nbsp</option>
+                                <option id='red' value='red'>&nbsp</option>
+                                <option id='magenta' value='magenta'>&nbsp</option>
+                                <option id='purple' value='purple'>&nbsp</option>
+                            </select>
                             <p>Opacity:</p>
-                            <input type="range" id='opacity' value="0" min="0" max="10" autocompleted="">
+                            <input type="range" id='opacity' value="0.486" min="0" max="1" autocompleted="" step='0.05'>
                             <p>Font Size:</p>
-                            <input type="range" id='fontSize' value="0" min="0" max="10" autocompleted="">
+                            <input type="range" id='fontSize' value="15" min="10" max="30" autocompleted=""step='2'>
                             <button id='delete'>Delete Note</button>
+                            <button id='closeAll'>Close All</button>
                             <button id='new'>New Note</button>
                         </div>
                     </div>
